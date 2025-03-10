@@ -1,0 +1,25 @@
+
+
+[DECLARE] x
+[ASSIGN] x to 
+	[BINOP] +
+		[NUM] 3232
+		[NUM] 5
+[IFELSE] if
+	[COMP] ==
+		[VAR] x
+		[BINOP] +
+			[BINOP] +
+				[BINOP] -
+					[NUM] 3233
+					[NUM] 1
+				[NUM] 3
+			[NUM] 2
+[IFELSE] then
+	
+	[FUNC] print
+		[VAR] x
+[IFELSE] else
+	
+	[ASSIGN] x to 
+		[NUM] 42

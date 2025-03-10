@@ -1,0 +1,12 @@
+Program         ::= StatementList
+StatementList   ::= Statement StatementList | ε
+Statement       ::= Declaration | Assignment | IfStatement | PrintCall
+Declaration     ::= "declare" Identifier ":" "int" ";"
+Assignment      ::= Identifier "=" Expression ";"
+IfStatement    ::= "if" "(" Expression ")" "{" StatementList "}" ElsePart
+ElsePart        ::= "else" "{" StatementList "}" | ε
+PrintCall      ::= "print" "(" Identifier ")" ";"
+Expression      ::= Term (("+" | "-") Term)*
+Term           ::= Factor (("*" | "/") Factor)*
+Factor         ::= Number | Identifier | "(" Expression ")" | Comparison
+Comparison      ::= Expression ("==" | "!=" | "<" | ">" | "<=" | ">=") Expression
