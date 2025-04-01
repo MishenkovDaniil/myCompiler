@@ -16,7 +16,6 @@ private:
     Parser *parser = nullptr;
     std::istringstream program;
     std::string& program_fn;
-    std::ofstream ast;
     std::string& ast_fn;
     std::unique_ptr<StatementList> statements;
     std::map<std::string, int> variables;
