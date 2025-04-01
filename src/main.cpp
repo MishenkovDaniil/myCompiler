@@ -6,28 +6,16 @@
 #include "parsing/ast.hpp"
 #include "parsing/parser.hpp"
 #include "tokenization/tokenize.hpp"
+#include "program.hpp"
 
-int main() {
-    std::string code = R"(
-        declare x: int;
-        x = 3232 + 5;
-        if (x == 3233  - 1  + 3  + 2) {
-                print   (x );
-        } else {
-            x = 42;
-        }
-    )";
+int main(int argc, const char **argv) {
+    if (argc != 3) {
+        std::cout << "Wrong number of parameters: must be 2 - file to execute and file to print ast tree to.\n";
+        return 0;
+    }
 
-    std::ofstream ast_file;
-    ast_file.open("ast.txt");
-
-    std::istringstream input(code);
-    Lexer lexer(input);
-    Parser parser(lexer);
-
-    auto statements = parser.parse();
-    statements->print(ast_file);
-    ast_file.close();
-    std::map<std::string, int> maaap;
-    statements->fastExecute(maaap);
+    std::string progname = argv[1];
+    std::string astname = argv[2];
+    Program prog(progname, astname);
+    prog.Run();
 }
