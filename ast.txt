@@ -1,25 +1,22 @@
-
-
-[DECLARE] x
-[ASSIGN] x to 
-	[BINOP] +
-		[NUM] 3232
-		[NUM] 5
-[IFELSE] if
-	[COMP] ==
-		[VAR] x
-		[BINOP] +
-			[BINOP] +
-				[BINOP] -
-					[NUM] 3233
-					[NUM] 1
-				[NUM] 3
-			[NUM] 2
-[IFELSE] then
-	
-	[FUNC] print
-		[VAR] x
-[IFELSE] else
-	
-	[ASSIGN] x to 
-		[NUM] 42
+StatementList: 
+	Declaration: x
+	Assignment: x
+		BinaryExpression is:+
+			Variable: 3232
+			Variable: 5
+	IfStatement: 
+		Comparison is:==
+			Variable: x
+			BinaryExpression is:+
+				BinaryExpression is:+
+					BinaryExpression is:-
+						Variable: 3233
+						Variable: 1
+					Variable: 3
+				Variable: 2
+			StatementList: 
+				PrintStatement: 
+					Variable: x
+		StatementList: 
+			Assignment: x
+				Variable: 42
