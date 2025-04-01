@@ -1,0 +1,13 @@
+#pragma once 
+class ASTNode;
+class Expression;
+class Number;
+class Variable;
+class BinaryExpression;
+class Comparison;
+class Statement;
+class Assignment;
+class Declaration;
+class PrintStatement;
+class IfStatement;
+class StatementList;
