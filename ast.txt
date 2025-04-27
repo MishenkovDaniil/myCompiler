@@ -1,9 +1,11 @@
 ProgramBlocks: 
-	FunctionDeaclaration: hello
+	FunctionDeclaration: hello
 		Parameter: value_a
 			Type: INT
 		Parameter: value_b
 			Type: INT
+ReturnType: 
+				Type: INT
 			StatementList: 
 				IfStatement: 
 					Comparison is:>=
@@ -11,13 +13,17 @@ ProgramBlocks:
 						Variable: 5
 						StatementList: 
 							Assignment: value_a
-								Variable: 112
+								BinaryExpression is:*
+									Variable: value_a
+									Variable: 2
 					StatementList: 
 						Assignment: value_a
 							Variable: 11
 				ReturnStatement: 
 					Variable: value_a
-	FunctionDeaclaration: main
+	FunctionDeclaration: main
+ReturnType: 
+				Type: INT
 			StatementList: 
 				Declaration: x
 				Assignment: x
@@ -36,8 +42,6 @@ ProgramBlocks:
 							Variable: 2
 						StatementList: 
 							Assignment: x
-								Variable: 0
-							Assignment: x
 								FunctionCall: hello
 									Variable: x
 									Variable: x
@@ -46,3 +50,5 @@ ProgramBlocks:
 					StatementList: 
 						Assignment: x
 							Variable: 42
+				ReturnStatement: 
+					Variable: 0
