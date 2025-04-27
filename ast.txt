@@ -1,22 +1,48 @@
-StatementList: 
-	Declaration: x
-	Assignment: x
-		BinaryExpression is:+
-			Variable: 3232
-			Variable: 5
-	IfStatement: 
-		Comparison is:==
-			Variable: x
-			BinaryExpression is:+
-				BinaryExpression is:+
-					BinaryExpression is:-
-						Variable: 3233
-						Variable: 1
-					Variable: 3
-				Variable: 2
+ProgramBlocks: 
+	FunctionDeaclaration: hello
+		Parameter: value_a
+			Type: INT
+		Parameter: value_b
+			Type: INT
 			StatementList: 
-				PrintStatement: 
-					Variable: x
-		StatementList: 
-			Assignment: x
-				Variable: 42
+				IfStatement: 
+					Comparison is:>=
+						Variable: value_a
+						Variable: 5
+						StatementList: 
+							Assignment: value_a
+								Variable: 112
+					StatementList: 
+						Assignment: value_a
+							Variable: 11
+				ReturnStatement: 
+					Variable: value_a
+	FunctionDeaclaration: main
+			StatementList: 
+				Declaration: x
+				Assignment: x
+					BinaryExpression is:+
+						Variable: 3232
+						Variable: 5
+				IfStatement: 
+					Comparison is:==
+						Variable: x
+						BinaryExpression is:+
+							BinaryExpression is:+
+								BinaryExpression is:-
+									Variable: 3233
+									Variable: 1
+								Variable: 3
+							Variable: 2
+						StatementList: 
+							Assignment: x
+								Variable: 0
+							Assignment: x
+								FunctionCall: hello
+									Variable: x
+									Variable: x
+							PrintStatement: 
+								Variable: x
+					StatementList: 
+						Assignment: x
+							Variable: 42
