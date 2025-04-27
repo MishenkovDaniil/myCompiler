@@ -1,12 +1,23 @@
-Program         ::= StatementList
-StatementList   ::= Statement StatementList | ε
-Statement       ::= Declaration | Assignment | IfStatement | PrintCall
-Declaration     ::= "declare" Identifier ":" "int" ";"
-Assignment      ::= Identifier "=" Expression ";"
-IfStatement    ::= "if" "(" Expression ")" "{" StatementList "}" ElsePart
-ElsePart        ::= "else" "{" StatementList "}" | ε
-PrintCall      ::= "print" "(" Identifier ")" ";"
-Expression      ::= Term (("+" | "-") Term)*
-Term           ::= Factor (("*" | "/") Factor)*
-Factor         ::= Number | Identifier | "(" Expression ")" | Comparison
-Comparison      ::= Expression ("==" | "!=" | "<" | ">" | "<=" | ">=") Expression
+Program             ::= ProgramBlocks
+ProgramBlocks       ::= (FunctionDeclaration | Statement)*
+
+FunctionDeclaration ::= "func" Identifier "(" (Parameter ("," Parameter)*)? ")" "->" Type "{" StatementList "}"
+Parameter           ::= Identifier ":" Type
+
+StatementList       ::= Statement*
+Statement           ::= Declaration | Assignment | IfStatement | PrintCall | ReturnStatement
+
+Declaration         ::= "declare" Identifier ":" Type ";"
+Assignment          ::= Identifier "=" Expression ";"
+IfStatement         ::= "if" "(" Expression ")" "{" StatementList "}" ElsePart
+ElsePart            ::= "else" "{" StatementList "}" | ε
+PrintCall           ::= "print" "(" Expression ")" ";"
+ReturnStatement     ::= "return" Expression ";"
+
+Expression          ::= Term (("+" | "-") Term)*
+Term                ::= Factor (("*" | "/") Factor)*
+Factor              ::= Number | Identifier | "(" Expression ")" | Comparison | FunctionCall
+FunctionCall        ::= Identifier "(" (Expression ("," Expression)*)? ")"
+Comparison          ::= Expression ("==" | "!=" | "<" | ">" | "<=" | ">=") Expression
+Type                ::= "int"
+
