@@ -22,10 +22,11 @@ Program::Program(std::string& program_fn, std::string& ast_fn) :
 }
 
 void Program::Run() {
-    statements = parser->parse();
+    programBlocks = parser->parse();
     SymbolTreeVisitor print_visitor(ast_fn);
     Interpreter interpreter{};
-    statements->Accept(&print_visitor);
-    statements->Accept(&interpreter);
+    programBlocks->Accept(&print_visitor);
+    programBlocks->Accept(&interpreter);
+    // statements->Accept(&interpreter);
     // statements->fastExecute(variables);
 }

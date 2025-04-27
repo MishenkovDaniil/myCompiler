@@ -1,5 +1,7 @@
 #pragma once 
 class ASTNode;
+class ProgramBlocks;
+class ProgramBlock;
 class Expression;
 class Number;
 class Variable;
@@ -9,5 +11,11 @@ class Statement;
 class Assignment;
 class Declaration;
 class PrintStatement;
+class ReturnStatement;
 class IfStatement;
 class StatementList;
+class FunctionCall;
+class Parameter;
+class Type;
+class FunctionDeclaration;
+enum class Types;

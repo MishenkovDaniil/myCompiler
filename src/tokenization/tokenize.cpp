@@ -37,9 +37,16 @@ Token Lexer::readIdentifier() {
         advance();
     }
 
-    if (value == "if" || value == "else" || value == "declare" || value == "print") {
+    if (value == "if" ||
+        value == "else" ||
+        value == "declare" ||
+        value == "print" ||
+        value == "return" ||
+        value == "int" ||
+        value == "func") {
         return {TokenType::Keyword, value};
     }
+
     return {TokenType::Identifier, value};
 }
 
@@ -63,7 +70,7 @@ Token Lexer::nextToken(){
         return readOperator();
     } 
     
-    if (std::string(";:{}()").find(currentChar) != std::string::npos) {
+    if (std::string(";:{}(),").find(currentChar) != std::string::npos) {
         char symbol = currentChar;
         advance();
         return {TokenType::Symbol, std::string(1, symbol)};

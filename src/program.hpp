@@ -17,6 +17,6 @@ private:
     std::istringstream program;
     std::string& program_fn;
     std::string& ast_fn;
-    std::unique_ptr<StatementList> statements;
+    std::unique_ptr<ProgramBlocks> programBlocks;
     std::map<std::string, int> variables;
 };
