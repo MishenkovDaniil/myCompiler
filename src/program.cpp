@@ -4,6 +4,7 @@
 
 #include "visitors/print_visitor.hpp"
 #include "visitors/interpreter.hpp"
+#include "visitors/llvm_codegen_visitor.hpp"
 
 Program::Program(std::string& program_fn, std::string& ast_fn) :
     program_fn(program_fn), ast_fn(ast_fn)
@@ -27,6 +28,7 @@ void Program::Run() {
     Interpreter interpreter{};
     programBlocks->Accept(&print_visitor);
     programBlocks->Accept(&interpreter);
-    // statements->Accept(&interpreter);
-    // statements->fastExecute(variables);
+    LLVMCodeGenVisitor llvmVisitor;
+    programBlocks->Accept(&llvmVisitor);
+    llvmVisitor.generateIR("output.ll");
 }
