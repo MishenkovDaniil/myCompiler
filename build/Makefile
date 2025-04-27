@@ -201,17 +201,17 @@ acc_gen/fast:
 .PHONY : acc_gen/fast
 
 #=============================================================================
-# Target rules for targets named YourCompiler
+# Target rules for targets named MyCompiler
 
 # Build rule for target.
-YourCompiler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 YourCompiler
-.PHONY : YourCompiler
+MyCompiler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyCompiler
+.PHONY : MyCompiler
 
 # fast build rule for target.
-YourCompiler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/build
-.PHONY : YourCompiler/fast
+MyCompiler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/build
+.PHONY : MyCompiler/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -231,7 +231,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -239,7 +239,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -247,7 +247,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/parsing/parser.o: src/parsing/parser.cpp.o
@@ -255,7 +255,7 @@ src/parsing/parser.o: src/parsing/parser.cpp.o
 
 # target to build an object file
 src/parsing/parser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/parsing/parser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/parsing/parser.cpp.o
 .PHONY : src/parsing/parser.cpp.o
 
 src/parsing/parser.i: src/parsing/parser.cpp.i
@@ -263,7 +263,7 @@ src/parsing/parser.i: src/parsing/parser.cpp.i
 
 # target to preprocess a source file
 src/parsing/parser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/parsing/parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/parsing/parser.cpp.i
 .PHONY : src/parsing/parser.cpp.i
 
 src/parsing/parser.s: src/parsing/parser.cpp.s
@@ -271,7 +271,7 @@ src/parsing/parser.s: src/parsing/parser.cpp.s
 
 # target to generate assembly for a file
 src/parsing/parser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/parsing/parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/parsing/parser.cpp.s
 .PHONY : src/parsing/parser.cpp.s
 
 src/program.o: src/program.cpp.o
@@ -279,7 +279,7 @@ src/program.o: src/program.cpp.o
 
 # target to build an object file
 src/program.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/program.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/program.cpp.o
 .PHONY : src/program.cpp.o
 
 src/program.i: src/program.cpp.i
@@ -287,7 +287,7 @@ src/program.i: src/program.cpp.i
 
 # target to preprocess a source file
 src/program.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/program.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/program.cpp.i
 .PHONY : src/program.cpp.i
 
 src/program.s: src/program.cpp.s
@@ -295,7 +295,7 @@ src/program.s: src/program.cpp.s
 
 # target to generate assembly for a file
 src/program.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/program.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/program.cpp.s
 .PHONY : src/program.cpp.s
 
 src/tokenization/tokenize.o: src/tokenization/tokenize.cpp.o
@@ -303,7 +303,7 @@ src/tokenization/tokenize.o: src/tokenization/tokenize.cpp.o
 
 # target to build an object file
 src/tokenization/tokenize.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/tokenization/tokenize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/tokenization/tokenize.cpp.o
 .PHONY : src/tokenization/tokenize.cpp.o
 
 src/tokenization/tokenize.i: src/tokenization/tokenize.cpp.i
@@ -311,7 +311,7 @@ src/tokenization/tokenize.i: src/tokenization/tokenize.cpp.i
 
 # target to preprocess a source file
 src/tokenization/tokenize.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/tokenization/tokenize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/tokenization/tokenize.cpp.i
 .PHONY : src/tokenization/tokenize.cpp.i
 
 src/tokenization/tokenize.s: src/tokenization/tokenize.cpp.s
@@ -319,7 +319,7 @@ src/tokenization/tokenize.s: src/tokenization/tokenize.cpp.s
 
 # target to generate assembly for a file
 src/tokenization/tokenize.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/tokenization/tokenize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/tokenization/tokenize.cpp.s
 .PHONY : src/tokenization/tokenize.cpp.s
 
 src/visitors/interpreter.o: src/visitors/interpreter.cpp.o
@@ -327,7 +327,7 @@ src/visitors/interpreter.o: src/visitors/interpreter.cpp.o
 
 # target to build an object file
 src/visitors/interpreter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/interpreter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/interpreter.cpp.o
 .PHONY : src/visitors/interpreter.cpp.o
 
 src/visitors/interpreter.i: src/visitors/interpreter.cpp.i
@@ -335,7 +335,7 @@ src/visitors/interpreter.i: src/visitors/interpreter.cpp.i
 
 # target to preprocess a source file
 src/visitors/interpreter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/interpreter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/interpreter.cpp.i
 .PHONY : src/visitors/interpreter.cpp.i
 
 src/visitors/interpreter.s: src/visitors/interpreter.cpp.s
@@ -343,7 +343,7 @@ src/visitors/interpreter.s: src/visitors/interpreter.cpp.s
 
 # target to generate assembly for a file
 src/visitors/interpreter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/interpreter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/interpreter.cpp.s
 .PHONY : src/visitors/interpreter.cpp.s
 
 src/visitors/llvm_codegen_visitor.o: src/visitors/llvm_codegen_visitor.cpp.o
@@ -351,7 +351,7 @@ src/visitors/llvm_codegen_visitor.o: src/visitors/llvm_codegen_visitor.cpp.o
 
 # target to build an object file
 src/visitors/llvm_codegen_visitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.o
 .PHONY : src/visitors/llvm_codegen_visitor.cpp.o
 
 src/visitors/llvm_codegen_visitor.i: src/visitors/llvm_codegen_visitor.cpp.i
@@ -359,7 +359,7 @@ src/visitors/llvm_codegen_visitor.i: src/visitors/llvm_codegen_visitor.cpp.i
 
 # target to preprocess a source file
 src/visitors/llvm_codegen_visitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.i
 .PHONY : src/visitors/llvm_codegen_visitor.cpp.i
 
 src/visitors/llvm_codegen_visitor.s: src/visitors/llvm_codegen_visitor.cpp.s
@@ -367,7 +367,7 @@ src/visitors/llvm_codegen_visitor.s: src/visitors/llvm_codegen_visitor.cpp.s
 
 # target to generate assembly for a file
 src/visitors/llvm_codegen_visitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/llvm_codegen_visitor.cpp.s
 .PHONY : src/visitors/llvm_codegen_visitor.cpp.s
 
 src/visitors/print_visitor.o: src/visitors/print_visitor.cpp.o
@@ -375,7 +375,7 @@ src/visitors/print_visitor.o: src/visitors/print_visitor.cpp.o
 
 # target to build an object file
 src/visitors/print_visitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/print_visitor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/print_visitor.cpp.o
 .PHONY : src/visitors/print_visitor.cpp.o
 
 src/visitors/print_visitor.i: src/visitors/print_visitor.cpp.i
@@ -383,7 +383,7 @@ src/visitors/print_visitor.i: src/visitors/print_visitor.cpp.i
 
 # target to preprocess a source file
 src/visitors/print_visitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/print_visitor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/print_visitor.cpp.i
 .PHONY : src/visitors/print_visitor.cpp.i
 
 src/visitors/print_visitor.s: src/visitors/print_visitor.cpp.s
@@ -391,7 +391,7 @@ src/visitors/print_visitor.s: src/visitors/print_visitor.cpp.s
 
 # target to generate assembly for a file
 src/visitors/print_visitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/YourCompiler.dir/build.make CMakeFiles/YourCompiler.dir/src/visitors/print_visitor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCompiler.dir/build.make CMakeFiles/MyCompiler.dir/src/visitors/print_visitor.cpp.s
 .PHONY : src/visitors/print_visitor.cpp.s
 
 # Help Target
@@ -410,7 +410,7 @@ help:
 	@echo "... intrinsics_gen"
 	@echo "... omp_gen"
 	@echo "... run"
-	@echo "... YourCompiler"
+	@echo "... MyCompiler"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
