@@ -116,8 +116,9 @@ class FunctionDeclaration : public ASTNode {
     std::string name;
     std::vector<std::unique_ptr<Parameter>> params;
     std::unique_ptr<StatementList> body;
-    FunctionDeclaration(std::string name, std::vector<std::unique_ptr<Parameter>> params, std::unique_ptr<StatementList> body) :
-        name(name), params(std::move(params)), body(std::move(body)) {}
+    std::unique_ptr<Type> returnType;
+    FunctionDeclaration(std::string name, std::vector<std::unique_ptr<Parameter>> params, std::unique_ptr<StatementList> body, std::unique_ptr<Type> returnTp) :
+        name(name), params(std::move(params)), body(std::move(body)), returnType(std::move(returnTp)) {}
     void Accept (Visitor* visitor) override {
         visitor->Visit(this);
     }
