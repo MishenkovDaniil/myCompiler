@@ -1,14 +1,14 @@
 
-func hello(value_a: int, value_b: int) {
+func hello(value_a: int, value_b: int):int {
     if (value_a >= 5) {
-        value_a = 112;
+        value_a = value_a * 2;
     } else {
         value_a = 11;
     }
     return value_a;
 }
 
-func main() {
+func main():int {
     declare x: int;
             x = 3232 + 5;
             if (x == 3233  - 1  + 3  + 2) {
@@ -18,4 +18,5 @@ func main() {
             } else {
             x = 42;
             }
+    return 0;
 }
