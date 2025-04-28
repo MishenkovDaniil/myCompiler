@@ -220,17 +220,19 @@ std::unique_ptr<Statement> Parser::parseDeclaration() {
 
     advance();
 
-    if (currentToken.value != "int") // пока поддерживаем только int
-        throw std::runtime_error("Ожидался тип 'int' после ':'");
+    std::unique_ptr<Type> type = parseType();
 
-    advance();
+    // if (currentToken.value != "int") // пока поддерживаем только int
+    //     throw std::runtime_error("Ожидался тип 'int' после ':'");
+
+    // advance();
 
     if (currentToken.value != ";")
         throw std::runtime_error("Ожидалась ';' после объявления переменной");
 
     advance();
     
-    return std::make_unique<Declaration>(varName);
+    return std::make_unique<Declaration>(varName, std::move(type));
 }
 
 std::unique_ptr<IfStatement> Parser::parseIfStatement() {
