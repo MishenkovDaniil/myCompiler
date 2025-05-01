@@ -1,2 +1,12 @@
+Scope: global
 Function main : int
 Function hello : int
+    Scope: hello
+    Variable value_b : int
+    Variable value_a : int
+        Scope: thenBranch_0
+        Scope: elseBranch_0
+    Scope: main
+    Variable x : int
+        Scope: thenBranch_1
+        Scope: elseBranch_1
