@@ -10,16 +10,15 @@
 #include <unordered_map>
 #include <memory>
 
-// Типы символов
 enum class SymbolType { Variable, Function, Class, Method, Constructor, Array };
 
 struct Symbol {
     SymbolType type;
     std::string name;
-    Types dataType; // Тип данных (int, string, или имя класса)
-    std::vector<Symbol> params; // Для функций/методов
-    size_t size; // Для массивов и классов
-    bool isPrivate; // Для полей класса
+    Types dataType;                 /// Тип данных (int, string, или имя класса)
+    std::vector<Symbol> params;     /// Для функций/методов
+    size_t size;                    /// Для массивов и классов
+    bool isPrivate;                 /// Для полей класса
 
     Symbol(SymbolType t, const std::string& n, Types type, 
            size_t s = 0, bool priv = false);
@@ -28,28 +27,31 @@ struct Symbol {
 class Scope {
     std::unordered_map<std::string, Symbol> symbols;
     Scope* parent;
+    std::string name;
+    std::vector<Scope*> children;
 
 public:
-    Scope(Scope* p = nullptr) : parent(p) {}
+    Scope(const std::string& name, Scope* p = nullptr) : name(name), parent(p) {}
 
     void add(const Symbol& sym);
+    void addChild(Scope* child);
 
     Symbol* find(const std::string& name);
     friend class ScopeTree;
 };
 
-// Дерево областей видимости
+/// Дерево областей видимости
 class ScopeTree {
-    std::unique_ptr<Scope> globalScope;
+    Scope *globalScope = nullptr;
     std::stack<Scope*> activeScopes;
 
 public:
     ScopeTree();
 
-    // Войти в новый scope (например, при входе в функцию)
-    void enterScope();
+    /// Войти в новый scope (например, при входе в функцию)
+    void enterScope(const std::string& name);
 
-    // Выйти из текущего scope
+    /// Выйти из текущего scope
     void exitScope();
 
     Scope* currentScope() const ;
@@ -107,5 +109,7 @@ private:
             throw std::runtime_error("Повторное объявление переменной: " + name);
         }
     }
+    size_t scope_num = 0;
 };
 std::string TypeToStr(Types type);
+std::string SizeTToStr (size_t val);

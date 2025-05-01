@@ -1,5 +1,6 @@
 #include "scope_tree_visitor.hpp"
 #include "../parsing/ast.hpp"
+#include <cassert>
 
 Symbol::Symbol(SymbolType t, const std::string& n, Types type, size_t s, bool priv)
         : type(t), name(n), dataType(type), size(s), isPrivate(priv) {}
@@ -17,20 +18,28 @@ Symbol* Scope::find(const std::string& name) {
     if (it != symbols.end()) return &it->second;
     return parent ? parent->find(name) : nullptr;
 }
-
-ScopeTree::ScopeTree() {
-    globalScope = std::make_unique<Scope>();
-    activeScopes.push(globalScope.get());
+void Scope::addChild(Scope* child) {
+    assert(child != this);
+    assert(child != parent);
+    
+    children.push_back(child);
 }
 
-void ScopeTree::enterScope() {
-    activeScopes.push(new Scope(activeScopes.top()));
+ScopeTree::ScopeTree() {
+    globalScope = new Scope("global");
+    activeScopes.push(globalScope);
+}
+
+void ScopeTree::enterScope(const std::string& name) {
+    Scope *new_scope = new Scope(name, activeScopes.top());
+    activeScopes.top()->addChild(new_scope);
+    activeScopes.push(new_scope);
 }
 
 void ScopeTree::exitScope() {
-    Scope* old = activeScopes.top();
+    // Scope* old = activeScopes.top();
     activeScopes.pop();
-    delete old; 
+    // delete old; 
 }
 
 Scope* ScopeTree::currentScope() const {
@@ -38,18 +47,23 @@ Scope* ScopeTree::currentScope() const {
 }
 void ScopeTree::dumpToFile(const std::string& filename) {
     std::ofstream out(filename);
-    dumpScope(globalScope.get(), out, 0);
+    dumpScope(globalScope, out, 0);
 }
 
 void ScopeTree::dumpScope(Scope* scope, std::ostream& out, int indent) {
     std::string indentStr(indent * 4, ' ');
     
+    out << indentStr << "Scope: " << scope->name << std::endl;
+
     for (const auto& [name, sym] : scope->symbols) {
         out << indentStr << symbolToString(sym) << "\n";
     }
 
-    if (scope->parent) {
-        dumpScope(scope->parent, out, indent + 1);
+    // if (scope->parent) {
+    //     dumpScope(scope->parent, out, indent + 1);
+    // }
+    for (auto& child : scope->children) {
+        dumpScope(child, out, indent + 1);
     }
 }
 
@@ -121,7 +135,7 @@ void ScopeTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
     }
     scopes.top()->add(funcSym);
 
-    scopeTree.enterScope();
+    scopeTree.enterScope(funcDecl->name);
     scopes.push(scopeTree.currentScope());
 
     for (auto& param : funcDecl->params) {
@@ -200,15 +214,22 @@ void ScopeTreeVisitor::Visit(IfStatement* statement) {
         throw std::runtime_error("Condition must integer(boolean)");
     }
 
-    scopeTree.enterScope();
+    size_t cur_scope_num = scope_num++;
+    scopeTree.enterScope("thenBranch_" + SizeTToStr(cur_scope_num));
     statement->thenBranch->Accept(this);
     scopeTree.exitScope();
 
     if (statement->elseBranch) {
-        scopeTree.enterScope();
+        scopeTree.enterScope("elseBranch_" + SizeTToStr(cur_scope_num));
         statement->elseBranch->Accept(this);
         scopeTree.exitScope();
     }
+}
+
+std::string SizeTToStr (size_t val) {
+    char buf[32] = "";
+    sprintf(buf, "%ld", val);
+    return std::string(buf);
 }
 
 void ScopeTreeVisitor::Visit(Expression* expression) {
