@@ -34,24 +34,27 @@ void SymbolTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
     PrintTabs();
     stream << "FunctionDeclaration: " << funcDecl->name << std::endl;
     ++num_tabs;
-    for (auto&& var : funcDecl->params) {
-        var->Accept(this);
+    for (auto&& param : funcDecl->params) {
+        param->Accept(this);
     }
-    ++num_tabs;
-    ++num_tabs;
-    stream << "ReturnType: " << std::endl;
+    
+    PrintTabs();
+    stream << "ReturnType: ";
+    
+    size_t num = num_tabs;
+    num_tabs = 0;
     funcDecl->returnType->Accept(this);
-    --num_tabs;
+    num_tabs = num;
+
+    ++num_tabs;
     funcDecl->body->Accept(this);
     --num_tabs;
     --num_tabs;
 }
 void SymbolTreeVisitor::Visit(Parameter* parameter) {
     PrintTabs();
-    stream << "Parameter: " << parameter->name << std::endl;
-    ++num_tabs;
+    stream << "Parameter: " << parameter->name;
     parameter->type->Accept(this);
-    --num_tabs;
 }
 
 void SymbolTreeVisitor::Visit(Type* type) {
@@ -90,10 +93,8 @@ void SymbolTreeVisitor::Visit(Assignment* assignment) {
 }
 void SymbolTreeVisitor::Visit(Declaration* declaration) {
     PrintTabs();
-    stream << "Declaration: " << declaration->varName << std::endl;
-    ++num_tabs;
+    stream << "Declaration: " << declaration->varName;
     declaration->varType->Accept(this);
-    --num_tabs;
 }
 void SymbolTreeVisitor::Visit(PrintStatement* print_statement) {
     PrintTabs();
