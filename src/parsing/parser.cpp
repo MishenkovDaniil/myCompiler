@@ -115,6 +115,13 @@ std::unique_ptr<FunctionDeclaration> Parser::parseFunctionDeclaration() {
 
     advance();
 
+    if (currentToken.value != ":")
+        throw std::runtime_error("Ожидался ':' после списка параметров и ')'");
+
+    advance();
+
+    auto returnTp = parseType();
+
     if (currentToken.value != "{")
         throw std::runtime_error("Ожидался '{' после (");
 
@@ -127,7 +134,7 @@ std::unique_ptr<FunctionDeclaration> Parser::parseFunctionDeclaration() {
 
     advance();
     
-    return std::make_unique<FunctionDeclaration>(funcName, std::move(params), std::move(body));
+    return std::make_unique<FunctionDeclaration>(funcName, std::move(params), std::move(body), std::move(returnTp));
 }
 
 std::unique_ptr<Expression> Parser::parseFunctionCall() {
