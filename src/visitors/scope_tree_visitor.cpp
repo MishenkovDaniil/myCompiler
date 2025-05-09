@@ -25,12 +25,25 @@ void Scope::addChild(Scope* child) {
     children.push_back(child);
 }
 
+Scope *Scope::enter(const std::string& name) {
+    for (auto& child : children) {
+        if (child->name == name) {
+            return child;
+        }
+    }
+    return nullptr;
+}
+
+Scope *Scope::exit() {
+    return parent;
+}
+
 ScopeTree::ScopeTree() {
     globalScope = new Scope("global");
     activeScopes.push(globalScope);
 }
 
-void ScopeTree::enterScope(const std::string& name) {
+void ScopeTree::enterNewScope(const std::string& name) {
     Scope *new_scope = new Scope(name, activeScopes.top());
     activeScopes.top()->addChild(new_scope);
     activeScopes.push(new_scope);
@@ -135,7 +148,7 @@ void ScopeTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
     }
     scopes.top()->add(funcSym);
 
-    scopeTree.enterScope(funcDecl->name);
+    scopeTree.enterNewScope(funcDecl->name);
     scopes.push(scopeTree.currentScope());
 
     for (auto& param : funcDecl->params) {
@@ -215,12 +228,12 @@ void ScopeTreeVisitor::Visit(IfStatement* statement) {
     }
 
     size_t cur_scope_num = scope_num++;
-    scopeTree.enterScope("thenBranch_" + SizeTToStr(cur_scope_num));
+    scopeTree.enterNewScope("thenBranch_" + SizeTToStr(cur_scope_num));
     statement->thenBranch->Accept(this);
     scopeTree.exitScope();
 
     if (statement->elseBranch) {
-        scopeTree.enterScope("elseBranch_" + SizeTToStr(cur_scope_num));
+        scopeTree.enterNewScope("elseBranch_" + SizeTToStr(cur_scope_num));
         statement->elseBranch->Accept(this);
         scopeTree.exitScope();
     }

@@ -25,16 +25,18 @@ struct Symbol {
 };
 
 class Scope {
+public:
     std::unordered_map<std::string, Symbol> symbols;
     Scope* parent;
     std::string name;
     std::vector<Scope*> children;
 
-public:
     Scope(const std::string& name, Scope* p = nullptr) : name(name), parent(p) {}
 
     void add(const Symbol& sym);
     void addChild(Scope* child);
+    Scope *enter(const std::string& name);
+    Scope *exit();
 
     Symbol* find(const std::string& name);
     friend class ScopeTree;
@@ -47,9 +49,10 @@ class ScopeTree {
 
 public:
     ScopeTree();
+    Scope *getGlobalScope() {return globalScope;}
 
     /// Войти в новый scope (например, при входе в функцию)
-    void enterScope(const std::string& name);
+    void enterNewScope(const std::string& name);
 
     /// Выйти из текущего scope
     void exitScope();
