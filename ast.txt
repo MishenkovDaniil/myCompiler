@@ -1,46 +1,41 @@
 ProgramBlocks: 
 	FunctionDeclaration: hello
-		Parameter: value_a
-			Type: INT
-		Parameter: value_b
-			Type: INT
-ReturnType: 
-				Type: INT
+		Parameter: value_a		Type: INT
+		Parameter: value_b		Type: INT
+		ReturnType: Type: INT
 			StatementList: 
 				IfStatement: 
 					Comparison is:>=
 						Variable: value_a
-						Variable: 5
+						Number: 5
 						StatementList: 
 							Assignment: value_a
 								BinaryExpression is:*
 									Variable: value_a
-									Variable: 2
+									Number: 2
 					StatementList: 
 						Assignment: value_a
-							Variable: 11
+							Number: 11
 				ReturnStatement: 
 					Variable: value_a
 	FunctionDeclaration: main
-ReturnType: 
-				Type: INT
+		ReturnType: Type: INT
 			StatementList: 
-				Declaration: x
-					Type: INT
+				Declaration: x				Type: INT
 				Assignment: x
 					BinaryExpression is:+
-						Variable: 3232
-						Variable: 5
+						Number: 3232
+						Number: 5
 				IfStatement: 
 					Comparison is:==
 						Variable: x
 						BinaryExpression is:+
 							BinaryExpression is:+
 								BinaryExpression is:-
-									Variable: 3233
-									Variable: 1
-								Variable: 3
-							Variable: 2
+									Number: 3233
+									Number: 1
+								Number: 3
+							Number: 2
 						StatementList: 
 							Assignment: x
 								FunctionCall: hello
@@ -50,6 +45,6 @@ ReturnType:
 								Variable: x
 					StatementList: 
 						Assignment: x
-							Variable: 42
+							Number: 42
 				ReturnStatement: 
-					Variable: 0
+					Number: 0
