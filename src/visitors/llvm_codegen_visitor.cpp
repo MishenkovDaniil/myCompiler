@@ -1,5 +1,6 @@
 #include <llvm/Support/FileSystem.h>
 #include <llvm/Support/raw_ostream.h>
+#include <llvm/IR/Verifier.h>
 
 #include "llvm_codegen_visitor.hpp"
 
@@ -107,11 +108,15 @@ void LLVMCodeGenVisitor::Visit(PrintStatement* printStatement) {
     llvm::Value* value = valueStack.top();
     valueStack.pop();
     
-    llvm::Value* formatStr = builder.CreateGlobalStringPtr("%d\n");
-    
+    llvm::Value* formatStr = builder.CreateGlobalString("%d\n");
+    llvm::Value* formatCast = builder.CreatePointerCast(
+        formatStr, 
+        llvm::PointerType::get(context, 0)
+    );
+
     builder.CreateCall(
         module->getFunction("printf"), 
-        {formatStr, value},
+        {formatCast, value},
         "printfCall"
     );
 }
@@ -140,16 +145,22 @@ void LLVMCodeGenVisitor::Visit(IfStatement* statement) {
     // Then
     builder.SetInsertPoint(thenBB);
     statement->thenBranch->Accept(this);
-    builder.CreateBr(mergeBB);
-    
+    if (!builder.GetInsertBlock()->getTerminator()) {
+        builder.CreateBr(mergeBB);
+    }
+
     // Else
-    func->getBasicBlockList().push_back(elseBB);
+    elseBB->insertInto(func);
     builder.SetInsertPoint(elseBB);
-    statement->elseBranch->Accept(this);
-    builder.CreateBr(mergeBB);
-    
-    // Merge
-    func->getBasicBlockList().push_back(mergeBB);
+    if (statement->elseBranch) {
+        statement->elseBranch->Accept(this);
+    }
+    if (!builder.GetInsertBlock()->getTerminator()) {
+        builder.CreateBr(mergeBB);
+    }
+
+    // Merge (исправлено: используем insertInto)
+    mergeBB->insertInto(func);
     builder.SetInsertPoint(mergeBB);
 }
 
@@ -232,9 +243,20 @@ void LLVMCodeGenVisitor::generateIR(const std::string& outputFilename) {
 
 void LLVMCodeGenVisitor::declarePrintf() {
     if (!module->getFunction("printf")) {
+        std::vector<llvm::Type*> printfArgs;
+        printfArgs.push_back(llvm::PointerType::get(context, 0));
+        
         llvm::FunctionType* printfType = llvm::FunctionType::get(
-            builder.getInt32Ty(), {builder.getInt8PtrTy()}, true
+            llvm::Type::getInt32Ty(context),
+            printfArgs,
+            true
         );
-        llvm::Function::Create(printfType, llvm::Function::ExternalLinkage, "printf", module.get());
+        
+        llvm::Function::Create(
+            printfType,
+            llvm::Function::ExternalLinkage,
+            "printf",
+            module.get()
+        );
     }
 }
