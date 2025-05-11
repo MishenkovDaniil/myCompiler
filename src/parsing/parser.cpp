@@ -123,7 +123,7 @@ std::unique_ptr<FunctionDeclaration> Parser::parseFunctionDeclaration() {
     auto returnTp = parseType();
 
     if (currentToken.value != "{")
-        throw std::runtime_error("Ожидался '{' после (");
+        throw std::runtime_error("Ожидался '{' после типа функции");
 
     advance();
 
