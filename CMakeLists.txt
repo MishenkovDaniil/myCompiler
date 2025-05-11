@@ -1,29 +1,36 @@
 cmake_minimum_required(VERSION 3.20)
-project(MyCompiler LANGUAGES CXX)
+project(MyCompiler LANGUAGES C CXX)
 
 # Настройка стандарта C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Поиск LLVM
+# Поиск LLVM 
 find_package(LLVM REQUIRED CONFIG)
-message(STATUS "LLVM version: ${LLVM_VERSION}")
-message(STATUS "LLVM libraries: ${LLVM_LIBS}")
+message(STATUS "Found LLVM ${LLVM_VERSION}")
+message(STATUS "LLVM binaries: ${LLVM_TOOLS_BINARY_DIR}")
+message(STATUS "LLVM libs: ${LLVM_LIBRARY_DIRS}")
 
-# Настройка путей LLVM
+# Добавление LLVM определений и настроек
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
-# Указываем компоненты LLVM, которые будем использовать
+# Используем современный target-based подход
+list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
+include(AddLLVM)
+
+# Указываем необходимые компоненты LLVM
 llvm_map_components_to_libnames(llvm_libs
-    Core          # Базовые функции
-    Support       # Утилиты
-    ExecutionEngine # Для JIT (опционально)
-    MC            # Машинный код
-    X86CodeGen    # Генерация кода для x86 (или другие цели)
+    Core
+    Support
+    ExecutionEngine
+    MC
+    X86CodeGen
+    Target
+    TargetParser
 )
 
-# Группировка исходников
+# Группировка исходников (лучше явно перечислять файлы)
 file(GLOB_RECURSE sources 
     src/*.cpp 
     src/visitors/*.cpp 
@@ -31,7 +38,7 @@ file(GLOB_RECURSE sources
     src/parsing/*.cpp
 )
 
-# Исключаем тесты (если есть)
+# Исключаем тесты
 list(FILTER sources EXCLUDE REGEX ".*_test\\.cpp$")
 
 # Создание исполняемого файла
