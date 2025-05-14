@@ -26,6 +26,7 @@ ReturnType:
 				Type: INT
 			StatementList: 
 				Declaration: x
+					Type: INT
 				Assignment: x
 					BinaryExpression is:+
 						Variable: 3232

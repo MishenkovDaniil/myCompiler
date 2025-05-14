@@ -13,7 +13,7 @@ void SymbolTreeVisitor::Visit(ASTNode* node) {
 }
     
 void SymbolTreeVisitor::Visit(std::string& program) {
-    // TODO
+    // cannot be called
 }
 
 void SymbolTreeVisitor::Visit(ProgramBlocks* programBlocks) {
@@ -27,7 +27,7 @@ void SymbolTreeVisitor::Visit(ProgramBlocks* programBlocks) {
     --num_tabs;
 }
 void SymbolTreeVisitor::Visit(ProgramBlock* programBlock) {
-    // TODO
+    // cannot be called
 }
 
 void SymbolTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
@@ -91,6 +91,9 @@ void SymbolTreeVisitor::Visit(Assignment* assignment) {
 void SymbolTreeVisitor::Visit(Declaration* declaration) {
     PrintTabs();
     stream << "Declaration: " << declaration->varName << std::endl;
+    ++num_tabs;
+    declaration->varType->Accept(this);
+    --num_tabs;
 }
 void SymbolTreeVisitor::Visit(PrintStatement* print_statement) {
     PrintTabs();
@@ -125,7 +128,7 @@ void SymbolTreeVisitor::Visit(Expression* expression) {
 }
 void SymbolTreeVisitor::Visit(Number* expression) {
     PrintTabs();
-    stream << "Variable: " << expression->value << std::endl;
+    stream << "Number: " << expression->value << std::endl;
 }
 void SymbolTreeVisitor::Visit(Variable* expression) {
     PrintTabs();
