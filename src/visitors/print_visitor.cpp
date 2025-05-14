@@ -32,12 +32,16 @@ void SymbolTreeVisitor::Visit(ProgramBlock* programBlock) {
 
 void SymbolTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
     PrintTabs();
-    stream << "FunctionDeaclaration: " << funcDecl->name << std::endl;
+    stream << "FunctionDeclaration: " << funcDecl->name << std::endl;
     ++num_tabs;
     for (auto&& var : funcDecl->params) {
         var->Accept(this);
     }
     ++num_tabs;
+    ++num_tabs;
+    stream << "ReturnType: " << std::endl;
+    funcDecl->returnType->Accept(this);
+    --num_tabs;
     funcDecl->body->Accept(this);
     --num_tabs;
     --num_tabs;
