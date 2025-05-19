@@ -9,7 +9,7 @@ SymbolTreeVisitor::~SymbolTreeVisitor() {
 }
 
 void SymbolTreeVisitor::Visit(ASTNode* node) {
-    std::cout << "error: visited abstract class ASTNode\n";
+    std::cout << "Ошибка: был посещен абстрактный класс ASTNode\n";
 }
     
 void SymbolTreeVisitor::Visit(std::string& program) {
@@ -82,7 +82,7 @@ void SymbolTreeVisitor::Visit(StatementList* statement) {
 }
 
 void SymbolTreeVisitor::Visit(Statement* statement) {
-    std::cout << "error: visited abstract class Statement\n";
+    std::cout << "Ошибка: был посещен абстрактный класс Statement\n";
 }
 void SymbolTreeVisitor::Visit(Assignment* assignment) {
     PrintTabs();
@@ -125,7 +125,7 @@ void SymbolTreeVisitor::Visit(IfStatement* statement) {
 }
 
 void SymbolTreeVisitor::Visit(Expression* expression) {
-    std::cout << "error: visited abstract class Expression\n";
+    std::cout << "Ошибка: был посещен абстрактный класс Expression\n";
 }
 void SymbolTreeVisitor::Visit(Number* expression) {
     PrintTabs();
