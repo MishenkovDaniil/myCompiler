@@ -163,8 +163,8 @@ void ScopeTreeVisitor::Visit(Assignment* assignment) {
 
     // Проверка совместимости типов
     if (varSym->dataType != exprType) {
-        throw std::runtime_error("Type mismatch: " + assignment->variable + " (" + TypeToStr(varSym->dataType) + 
-                                ") cannot be assigned " + TypeToStr(exprType));
+        throw std::runtime_error("Несоответствие типов: " + assignment->variable + " (" + TypeToStr(varSym->dataType) + 
+                                ") не может быть присвоен " + TypeToStr(exprType));
     }
 
 }
@@ -180,13 +180,13 @@ void ScopeTreeVisitor::Visit(ReturnStatement* returnStatement) {
     Symbol* currentFunc = currentFunction; // currentFunction должен храниться в Visitor
     
     if (!returnStatement->expression && currentFunc->dataType != Types::INT) {
-        throw std::runtime_error("Non-void function must return a value");
+        throw std::runtime_error("Необъявленная 'void' функция должна возвращать значение");
     }
     
     if (returnStatement->expression) {
         returnStatement->expression->Accept(this);
         if (currentExpressionType != currentFunc->dataType) {
-            throw std::runtime_error("Return type mismatch. Expected: " + 
+            throw std::runtime_error("Несоответствие типов в 'return'. Ожидалось: " + 
                                    TypeToStr(currentFunc->dataType));
         }
     }
@@ -197,7 +197,7 @@ void ScopeTreeVisitor::Visit(IfStatement* statement) {
     Types condType = currentExpressionType;
     
     if (condType != Types::INT) { // no boolean yet
-        throw std::runtime_error("Condition must integer(boolean)");
+        throw std::runtime_error("Условие должно быть типа integer(boolean)");
     }
 
     scopeTree.enterScope();
@@ -233,7 +233,7 @@ void ScopeTreeVisitor::Visit(BinaryExpression* expression) {
     
     // Проверка совместимости типов для операции
     if (leftType != rightType) {
-        throw std::runtime_error("Type mismatch in binary operation: " + TypeToStr(leftType) + " vs " + TypeToStr(rightType));
+        throw std::runtime_error("Несоответствие типов в бинарной операции: " + TypeToStr(leftType) + " и " + TypeToStr(rightType));
     }
         
     currentExpressionType = leftType; 
@@ -247,7 +247,7 @@ void ScopeTreeVisitor::Visit(Comparison* expression) {
     
     // Проверка совместимости типов для операции
     if (leftType != rightType) {
-        throw std::runtime_error("Type mismatch in comparison operation: " + TypeToStr(leftType) + " vs " + TypeToStr(rightType));
+        throw std::runtime_error("Несоответствие типов в операции сравнения: " + TypeToStr(leftType) + " и " + TypeToStr(rightType));
     }
         
     currentExpressionType = Types::INT; // no boolean yet
@@ -256,7 +256,7 @@ void ScopeTreeVisitor::Visit(FunctionCall* funcCall) {
     // Поиск функции в scope
     Symbol* funcSym = scopes.top()->find(funcCall->name);
     if (!funcSym || funcSym->type != SymbolType::Function) {
-        throw std::runtime_error("Undefined function: " + funcCall->name);
+        throw std::runtime_error("Необъявленная функция: " + funcCall->name);
     }
 
     // Проверка количества аргументов
@@ -265,15 +265,15 @@ void ScopeTreeVisitor::Visit(FunctionCall* funcCall) {
         char params_size[10] = "";
         sprintf(args_size, "%ld", funcCall->args.size());
         sprintf(params_size, "%ld", funcSym->params.size());
-        throw std::runtime_error("Argument count mismatch for " + funcCall->name + ", called with " + args_size + ", expected " + params_size);
+        throw std::runtime_error("Несоответствие количества аргументов " + funcCall->name + ", вызвана с " + args_size + "аргументами, ожидалось " + params_size);
     }
 
     // Проверка типов аргументов
     for (size_t i = 0; i < funcCall->args.size(); ++i) {
         funcCall->args[i]->Accept(this);
         if (currentExpressionType != funcSym->params[i].dataType) {
-            throw std::runtime_error("Type mismatch in argument " + std::to_string(i+1) + 
-                                   " of " + funcCall->name + ". Expected: " + 
+            throw std::runtime_error("Несоответсвие типа аргумента " + std::to_string(i+1) + 
+                                   " в функции " + funcCall->name + ". Ожидалось: " + 
                                    TypeToStr(funcSym->params[i].dataType));
         }
     }

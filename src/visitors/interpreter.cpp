@@ -149,7 +149,7 @@ void Interpreter::Visit(Comparison* expression) {
 }
 void Interpreter::Visit(FunctionCall* functionCall) {
     if (variables_.count(functionCall->name) == 0) {
-        std::cerr << "no such function: " << functionCall->name << std::endl;
+        std::cerr << "Функции " << functionCall->name << " не существует." << std::endl;
         return;
     }
     FunctionDeclaration* func = functions_[functionCall->name];
@@ -167,7 +167,7 @@ std::string Interpreter::CheckArgs(FunctionCall* functionCall, FunctionDeclarati
     size_t arg_len = functionCall->args.size();
     size_t param_len = functionDeclaration->params.size();
     if (arg_len != param_len) {
-        return "wrong argument number";
+        return "некорректное количество аргументов";
     }
     for (int i = 0; i < param_len; i++) {
         functionDeclaration->params[i]->Accept(this);

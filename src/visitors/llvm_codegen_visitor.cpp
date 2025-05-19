@@ -15,7 +15,7 @@ llvm::AllocaInst* LLVMCodeGenVisitor::createEntryBlockAlloca(llvm::Function* fun
 
 llvm::Type* LLVMCodeGenVisitor::getLLVMType(Type* type) {
     if (type->type == Types::INT) return llvm::Type::getInt32Ty(context);
-    throw std::runtime_error("Unknown type: ");
+    throw std::runtime_error("Неизвестный тип: ");
 }
 
 
@@ -198,7 +198,7 @@ void LLVMCodeGenVisitor::Visit(BinaryExpression* expression) {
             valueStack.push(builder.CreateSDiv(left, right, "divtmp"));
             break;
         default: 
-            throw std::runtime_error("Unknown operator");
+            throw std::runtime_error("Неизвестный оператор");
     }
 }
 void LLVMCodeGenVisitor::Visit(Comparison* comparison) {
@@ -217,7 +217,7 @@ void LLVMCodeGenVisitor::Visit(Comparison* comparison) {
     else if (comparison->op == ">") pred = llvm::CmpInst::ICMP_SGT;
     else if (comparison->op == "<=") pred = llvm::CmpInst::ICMP_SLE;
     else if (comparison->op == ">=") pred = llvm::CmpInst::ICMP_SGE;
-    else throw std::runtime_error("Unknown comparison operator");
+    else throw std::runtime_error("Неизвестный оператор сравнения");
     
     valueStack.push(builder.CreateICmp(pred, left, right, "cmptmp"));
 }

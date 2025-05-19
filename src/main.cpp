@@ -10,7 +10,7 @@
 
 int main(int argc, const char **argv) {
     if (argc != 3) {
-        std::cout << "Wrong number of parameters: must be 2 - file to execute and file to print ast tree to.\n";
+        std::cout << "Некорректное количество аргументов: требуется 2 - путь к файлу с исходным кодом и к файлу для дампа ast-дерева.\n";
         return 0;
     }
 
