@@ -153,7 +153,8 @@ public:
 class Declaration : public Statement {
 public:
     std::string varName;
-    Declaration(std::string name) : varName(name) {}
+    std::unique_ptr<Type> varType;
+    Declaration(std::string name, std::unique_ptr<Type> type) : varName(name), varType(std::move(type)) {}
     void Accept (Visitor* visitor) override {
         visitor->Visit(this);
     }

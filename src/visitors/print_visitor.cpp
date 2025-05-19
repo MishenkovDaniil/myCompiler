@@ -9,11 +9,11 @@ SymbolTreeVisitor::~SymbolTreeVisitor() {
 }
 
 void SymbolTreeVisitor::Visit(ASTNode* node) {
-    std::cout << "error: visited abstract class ASTNode\n";
+    std::cout << "Ошибка: был посещен абстрактный класс ASTNode\n";
 }
     
 void SymbolTreeVisitor::Visit(std::string& program) {
-    // TODO
+    // cannot be called
 }
 
 void SymbolTreeVisitor::Visit(ProgramBlocks* programBlocks) {
@@ -27,7 +27,7 @@ void SymbolTreeVisitor::Visit(ProgramBlocks* programBlocks) {
     --num_tabs;
 }
 void SymbolTreeVisitor::Visit(ProgramBlock* programBlock) {
-    // TODO
+    // cannot be called
 }
 
 void SymbolTreeVisitor::Visit(FunctionDeclaration* funcDecl) {
@@ -79,7 +79,7 @@ void SymbolTreeVisitor::Visit(StatementList* statement) {
 }
 
 void SymbolTreeVisitor::Visit(Statement* statement) {
-    std::cout << "error: visited abstract class Statement\n";
+    std::cout << "Ошибка: был посещен абстрактный класс Statement\n";
 }
 void SymbolTreeVisitor::Visit(Assignment* assignment) {
     PrintTabs();
@@ -91,6 +91,9 @@ void SymbolTreeVisitor::Visit(Assignment* assignment) {
 void SymbolTreeVisitor::Visit(Declaration* declaration) {
     PrintTabs();
     stream << "Declaration: " << declaration->varName << std::endl;
+    ++num_tabs;
+    declaration->varType->Accept(this);
+    --num_tabs;
 }
 void SymbolTreeVisitor::Visit(PrintStatement* print_statement) {
     PrintTabs();
@@ -121,11 +124,11 @@ void SymbolTreeVisitor::Visit(IfStatement* statement) {
 }
 
 void SymbolTreeVisitor::Visit(Expression* expression) {
-    std::cout << "error: visited abstract class Expression\n";
+    std::cout << "Ошибка: был посещен абстрактный класс Expression\n";
 }
 void SymbolTreeVisitor::Visit(Number* expression) {
     PrintTabs();
-    stream << "Variable: " << expression->value << std::endl;
+    stream << "Number: " << expression->value << std::endl;
 }
 void SymbolTreeVisitor::Visit(Variable* expression) {
     PrintTabs();
