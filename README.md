@@ -30,7 +30,7 @@ cmake --build .
 ```
 - запустите выполняемый файл 
 ``` bash 
-    clang output.ll -o program
+    clang output.ll -o MyCompiler
 ```
 или из корня проекта
 ``` bash 
